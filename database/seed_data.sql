@@ -1,4 +1,4 @@
--- Insert departments
+-- Insert data in tables
 INSERT INTO departments (name) VALUES
 ('Engineering'),
 ('Sales'),
@@ -7,7 +7,6 @@ INSERT INTO departments (name) VALUES
 ('Finance'),
 ('Operations');
 
--- Insert employees
 INSERT INTO employees (name, department_id, email, salary) VALUES
 ('John Smith', 1, 'john.smith@company.com', 85000),
 ('Sarah Johnson', 1, 'sarah.johnson@company.com', 92000),
@@ -22,7 +21,6 @@ INSERT INTO employees (name, department_id, email, salary) VALUES
 ('William Rodriguez', 6, 'william.rodriguez@company.com', 62000),
 ('Patricia Lee', 6, 'patricia.lee@company.com', 64000);
 
--- Insert products
 INSERT INTO products (name, price) VALUES
 ('Laptop Pro 15', 1299.99),
 ('Wireless Mouse', 29.99),
@@ -40,7 +38,6 @@ INSERT INTO products (name, price) VALUES
 ('External SSD 1TB', 159.99),
 ('Bluetooth Speaker', 129.99);
 
--- Insert orders
 INSERT INTO orders (customer_name, employee_id, order_total, order_date) VALUES
 ('Acme Corporation', 3, 2599.98, '2024-01-15'),
 ('Tech Startup Inc', 3, 1599.97, '2024-01-18'),

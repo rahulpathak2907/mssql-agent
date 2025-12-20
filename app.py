@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""
-Natural Language Search Interface for PostgreSQL
-Simplified Streamlit Application with logging
-"""
+"""Natural Language Search Interface for PostgreSQLSimplified Streamlit Application"""
 
 import streamlit as st
 import pandas as pd

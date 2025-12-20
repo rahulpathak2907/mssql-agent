@@ -10,7 +10,6 @@ class EmbeddingService:
 
     def __init__(self):
         logger.info("Initializing EmbeddingService...")
-        # Use a lightweight but effective model
         self.model = SentenceTransformer('all-MiniLM-L6-v2')
         # openai.api_key = Config.OPENAI_API_KEY
         # self.model = "text-embedding-3-small"

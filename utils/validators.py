@@ -7,14 +7,12 @@ logger = get_logger("sql_validator")
 class SQLValidator:
     """Validates SQL queries for safety and correctness"""
 
-    # Dangerous SQL keywords and patterns
     DANGEROUS_KEYWORDS = [
         'drop', 'delete', 'truncate', 'alter', 'create',
         'insert', 'update', 'grant', 'revoke', 'exec',
         'execute', 'shutdown', 'restore', 'backup'
     ]
 
-    # Allowed SQL keywords
     ALLOWED_KEYWORDS = [
         'select', 'from', 'where', 'join', 'left', 'right',
         'inner', 'outer', 'on', 'and', 'or', 'not', 'in',
@@ -38,19 +36,16 @@ class SQLValidator:
 
         normalized_query = sql_query.lower().strip()
 
-        # Check for dangerous keywords
         for keyword in self.DANGEROUS_KEYWORDS:
             pattern = r'\b' + keyword + r'\b'
             if re.search(pattern, normalized_query):
                 logger.warning("Dangerous operation detected: %s", keyword.upper())
                 return False, f"Dangerous operation detected: {keyword.upper()}"
 
-        # Check if query starts with SELECT
         if not normalized_query.startswith('select'):
             logger.warning("Query does not start with SELECT")
             return False, "Only SELECT queries are allowed"
 
-        # Check for SQL injection patterns
         injection_patterns = [
             r';\s*drop',
             r';\s*delete',
@@ -69,7 +64,6 @@ class SQLValidator:
                 logger.warning("Potential SQL injection detected")
                 return False, "Potential SQL injection detected"
 
-        # Validate SQL syntax using sqlparse
         try:
             parsed = sqlparse.parse(sql_query)
             if not parsed:
@@ -84,12 +78,10 @@ class SQLValidator:
             logger.exception("SQL parsing error")
             return False, f"SQL parsing error: {str(e)}"
 
-        # Check for excessive nesting or complexity
         if normalized_query.count('select') > 5:
             logger.warning("Query too complex")
             return False, "Query too complex (too many subqueries)"
 
-        # Validate table names
         allowed_tables = ['employees', 'departments', 'orders', 'products']
         from_pattern = r'from\s+(\w+)'
         join_pattern = r'join\s+(\w+)'

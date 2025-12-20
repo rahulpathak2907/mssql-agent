@@ -4,7 +4,6 @@ from contextlib import contextmanager
 from config import Config
 from logger_config import get_logger
 
-# Initialize logger
 logger = get_logger("database")
 
 class DatabaseConnection:
@@ -60,7 +59,6 @@ class DatabaseConnection:
                     name VARCHAR(255) NOT NULL
                 )
             """
-            # Add other tables here if needed
         }
 
         if table_name not in create_table_queries:
@@ -88,7 +86,6 @@ class DatabaseConnection:
         Execute a query and return results
         :param ensure_tables: list of tables to check/create before query
         """
-        # Ensure required tables exist
         if ensure_tables:
             for table in ensure_tables:
                 self.ensure_table_exists(table)

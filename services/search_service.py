@@ -33,7 +33,6 @@ class SearchService:
         }
 
         try:
-            # Determine if this is a semantic search query
             is_semantic = self._is_semantic_query(user_query)
             logger.debug("Is semantic query: %s", is_semantic)
 
@@ -73,25 +72,21 @@ class SearchService:
         }
 
         try:
-            # Generate SQL from natural language
             sql_query = self.query_generator.generate_sql(user_query)
             result['sql_query'] = sql_query
             logger.debug("Generated SQL: %s", sql_query[:100])
 
-            # Validate SQL query
             is_valid, error_msg = self.validator.validate_query(sql_query)
             if not is_valid:
                 result['error'] = f"Invalid query: {error_msg}"
                 logger.warning("SQL validation failed: %s", error_msg)
                 return result
 
-            # Execute query
             results = self.db.execute_query(sql_query)
             result['results'] = [dict(row) for row in results]
             result['success'] = True
             logger.info("SQL query executed successfully | rows=%d", len(results))
 
-            # Generate explanation
             result['explanation'] = self.query_generator.explain_query(sql_query)
 
         except Exception as e:
@@ -113,7 +108,6 @@ class SearchService:
         }
 
         try:
-            # Determine which table to search
             if 'product' in user_query.lower():
                 results = self.embedding_service.search_similar_products(user_query, limit=10)
                 result['explanation'] = "Searching for similar products using AI embeddings"
@@ -121,7 +115,6 @@ class SearchService:
                 results = self.embedding_service.search_similar_employees(user_query, limit=10)
                 result['explanation'] = "Searching for similar employees using AI embeddings"
             else:
-                # Default to product search
                 results = self.embedding_service.search_similar_products(user_query, limit=10)
                 result['explanation'] = "Performing semantic search across products"
 
@@ -143,7 +136,6 @@ class SearchService:
         sql_result = self._sql_search(user_query)
         semantic_result = self._semantic_search(user_query)
 
-        # Combine and deduplicate results
         combined_results = []
         seen_ids = set()
 

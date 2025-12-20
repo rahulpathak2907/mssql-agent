@@ -2,27 +2,22 @@ import os
 from dotenv import load_dotenv
 from logger_config import get_logger
 
-# Initialize logger
 logger = get_logger("config")
 
-# Load environment variables
 load_dotenv()
 logger.info("Environment variables loaded")
 
 class Config:
     """Application configuration"""
 
-    # Database Configuration
     DB_HOST = os.getenv('DB_HOST', 'localhost')
     DB_PORT = os.getenv('DB_PORT', '5432')
     DB_NAME = os.getenv('DB_NAME', 'nl_search_db')
     DB_USER = os.getenv('DB_USER', 'postgres')
     DB_PASSWORD = os.getenv('DB_PASSWORD', '')
 
-    # OpenAI Configuration
     OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '')
 
-    # Application Configuration
     DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
     logger.debug(
