@@ -3,6 +3,7 @@
 
 
 
+
 🔍 Natural Language Search for PostgreSQL
 
 This project lets you query a PostgreSQL database using normal language, so you don’t have to write SQL.
