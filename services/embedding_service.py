@@ -104,11 +104,11 @@ class EmbeddingService:
 
     def populate_all_embeddings(self):
         """Generate embeddings for all tables"""
-        logger.info("🔄 Populating vector embeddings for all tables...")
+        logger.info("Populating vector embeddings for all tables...")
         self.populate_employee_embeddings()
         self.populate_product_embeddings()
         self.populate_order_embeddings()
-        logger.info("✅ All embeddings generated successfully")
+        logger.info("All embeddings generated successfully")
 
     def search_similar_products(self, query_text, limit=5):
         """Search for products similar to query text"""
